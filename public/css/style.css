@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Gaegu|Quicksand');
+
+* {
+	font-family: Quicksand;
+}
+
+/* Main Page */
+#greeting_card {
+	text-align: center;
+}
+
+
+#banner {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+#message {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+#blogpost_box {
+    padding: 15%;
+}
+
+.form_label {
+    text-transform: uppercase;
+    font-size: large;
+}
+
+textarea {
+    height: 100px;
+}
+
+.actions_tab {
+	cursor: pointer;
+	font-size: x-large;
+}
+
+label {
+	font-size: large;
+}
+
+/* Navigation */
+.nav-wrapper {
+	font-family: Gaegu;
+}
+
+/* #signed_in_as {
+	padding-right: 0.5%;
+} */
+
+/* Sign in and Sign up */
+/* #signin_box, #signup_box {
+	width: 45%;
+}
+
+#signin_box {
+	padding-left: 3%;
+	padding-right: 2%;
+	float: right;
+} */
+
+#signin_errors, #signup_errors {
+	display: none;
+}
+
+/*
+#signup_box {
+	padding-left: 2%;
+	padding-right: 3%;
+	border-right: 1px solid black;
+	display: inline-block;
+} */
+
+#actions_box {
+	padding-left: 20%;
+	padding-right: 20%;
+}

@@ -1,0 +1,88 @@
+<!-- The sign up/sign in card. -->
+<div class="card">
+
+    <!-- Blah -->
+    <div id="greeting_card" class="card-content">
+      <h3 id="banner">Welcome to Ye Olde Blog!</h3>
+      <p id="message">Okay, the title needs some work. We'll get right on that.<br>
+          In the meantime, you enjoy blogging!</p>
+    </div>
+
+    <!-- Card links -->
+    <div class="cards-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab actions_tab" id="signup_tab_button"><a id="signup_tab_link">Sign up</a></li>
+        <li class="tab actions_tab" id="signin_tab_button"><a id="signin_tab_link" class="active">Sign in</a></li>
+      </ul>
+    </div>
+
+    <!-- Main card div. -->
+    <div class="card-content lighten-4" id="actions_box">
+      <!-- Sign up tab -->
+      <div id="signup_tab" style="display: none;">
+        <h4>Sign up</h4>
+        
+        <br>
+        <div id="signup_errors">
+          <h5>Something went wrong.</h5>
+          <p id="signup_errors_list"></p>
+        </div>
+        <br>
+  
+        <div id="signup_form">
+          <label for="signup_email">Email</label>
+          <input type="email" name="signup_email" id="signup_email" placeholder="Email address">
+          
+          <br>
+
+          <label for="fname">First name</label>
+          <input type="text" name="fname" id="fname" placeholder="Enter first name">
+
+          <br>
+
+          <label for="lname">Last name</label>
+          <input type="text" name="lname" id="lname" placeholder="Enter last name">
+
+          <br>
+
+          <label for="signup_pwd">Password</label>
+          <input type="password" name="signup_pwd" id="signup_pwd" placeholder="Choose a Password">
+    
+          <br>
+
+          <label for="signup_confirm">Confirm Password</label>
+          <input type="password" name="signup_confirm" id="signup_confirm" placeholder="Confirm Password">
+
+          <br>
+          <br>
+          <button id="signup_button" class="btn waves-effect waves-light" name="signin">Sign up</button>
+        </div>
+      </div>
+
+      <!-- Sign in tab -->
+      <div id="signin_tab" style="display: block;">
+        <h4>Sign in</h4>
+        
+        <br>
+        <div id="signin_errors">
+          <h5>Something went wrong.</h5>
+          <p id="signin_errors_list"></p>
+        </div>
+        <br>
+  
+        <label for="signin_email">Email</label>
+        <input type="email" name="signin_email" id="signin_email" placeholder="Email address">
+        
+        <br>
+
+        <label for="signin_pwd">Password</label>
+        <input type="password" name="signin_pwd" id=signin_pwd placeholder="Password">
+        
+        <br>
+        <br>
+        <button id="signin_button" class="btn waves-effect waves-light" name="signin">Sign in</button>
+      </div>
+    
+    </div>
+      
+  </div>

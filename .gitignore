@@ -1,0 +1,6 @@
+**/*.json
+firestore.rules
+functions/*
+node_modules/*
+.firebaserc
+**/*.log
