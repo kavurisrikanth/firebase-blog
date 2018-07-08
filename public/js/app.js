@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		  signInUser(user);
 	  } else {
 		  loadAuthCard();
-		  setupSignInListener();
 	  }
 	} catch (e) {
 	  console.error(e);
@@ -22,9 +21,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 loadAuthCard = function() {
-	$('#main_box').load('auth_card.html');
-	  
+	// $('#main_box').load('auth_card.html');
+	let newRequest = new XMLHttpRequest();
+	newRequest.open('GET', 'auth_card.html', true);
+	newRequest.onreadystatechange = function() {
+		if(this.readyState !== 4) return;
+		if(this.status !== 200) return;
+
+		document.querySelector('#main_box').innerHTML = this.responseText;
 		setupSignUpListener();	
+		setupSignInListener();
+	}
+	newRequest.send();
 };
 
 /*****
@@ -62,6 +70,18 @@ signOutUser = function() {
  * Sets up user authentication.
  */
 setupSignInListener = function() {
+	/*
+	 * Event listener for the sign up tab.
+	 * Needed for error message displays.
+	 */
+	document.querySelector('#signin_tab_button').addEventListener('click', function() {
+		document.querySelector('#signup_tab').style.display = "none";
+		document.querySelector('#signin_tab').style.display = "block";
+	
+		document.querySelector('#signin_tab_link').setAttribute('class', 'active');
+		document.querySelector('#signup_tab_link').removeAttribute('class');
+	});
+
 	document.querySelector('#signin_button').addEventListener('click', function() {
 		// Get the email and password fields from the input tags
 		let email = document.querySelector('#signin_email').value,
@@ -98,13 +118,7 @@ setupSignInListener = function() {
 		});
 	});
 
-	document.querySelector('#signin_tab_button').addEventListener('click', function() {
-		document.querySelector('#signup_tab').style.display = "none";
-		document.querySelector('#signin_tab').style.display = "block";
 	
-		document.querySelector('#signin_tab_link').setAttribute('class', 'active');
-		document.querySelector('#signup_tab_link').removeAttribute('class');
-	});
 };
 
 /*****
@@ -112,6 +126,18 @@ setupSignInListener = function() {
  * Creates a new user.
  */
 setupSignUpListener = function() {
+	/*
+	 * Event listener for the sign up tab.
+	 * Needed for error message displays.
+	 */
+	document.querySelector('#signup_tab_button').addEventListener('click', function() {
+		document.querySelector('#signin_tab').style.display = "none";
+		document.querySelector('#signup_tab').style.display = "block";
+
+		document.querySelector('#signup_tab_link').setAttribute('class', 'active');
+		document.querySelector('#signin_tab_link').removeAttribute('class');
+	});
+
 	document.querySelector('#signup_button').addEventListener('click', function() {
 		// Get email and password for signup.
 		let email = document.querySelector('#signup_email').value,
@@ -153,18 +179,6 @@ setupSignUpListener = function() {
 			}
 		});
 	})
-
-	/*
-	 * Event listeners for the sign in and sign up tabs.
-	 * Needed for error message displays.
-	 */
-	document.querySelector('#signup_tab_button').addEventListener('click', function() {
-		document.querySelector('#signin_tab').style.display = "none";
-		document.querySelector('#signup_tab').style.display = "block";
-
-		document.querySelector('#signup_tab_link').setAttribute('class', 'active');
-		document.querySelector('#signin_tab_link').removeAttribute('class');
-	});
 };
 
 

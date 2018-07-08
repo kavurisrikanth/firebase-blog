@@ -1,5 +1,5 @@
 **/*.json
-firestore.rules
+**/*.rules
 functions/*
 node_modules/*
 .firebaserc
