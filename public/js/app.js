@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	  document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
 
 	  let user = firebase.auth().currentUser;
-	  if(user != null) {
+	  console.log(user);
+	  if(user !== null) {
 		  signInUser(user);
 	  } else {
 		  loadAuthCard();
@@ -40,6 +41,7 @@ loadAuthCard = function() {
  * is done.
  */
 signInUser = function(user) {
+	// Make changes to the navigation tab.
 	let navBarRight = document.querySelector('#nav-mobile');
 
 	navBarRight.innerHTML = '';
@@ -50,6 +52,47 @@ signInUser = function(user) {
 		firebase.auth().signOut().then(function() {
 			signOutUser();
 		});
+	});
+
+	// Make changes to the main box.
+	let newRequest = new XMLHttpRequest();
+	newRequest.open('GET', 'blogpost.html', true);
+	newRequest.onreadystatechange = function() {
+		if(this.readyState !== 4) return;
+		if(this.status !== 200) return;
+
+		document.querySelector('#main_box').innerHTML = this.responseText;
+		setupBlogPostListener();	
+	}
+	newRequest.send();
+}
+
+
+setupBlogPostListener = function() {
+	document.querySelector('#submit_blogpost').addEventListener('click', function() {
+		// Clear all existing errors.
+		let blogPostErrorsDiv = document.querySelector('#blogpost_errors');
+		document.querySelector('#blogpost_errors').style.display = "none";
+		blogPostErrorsDiv.innerHTML = '';
+
+		let postTitle = document.querySelector('#blogpost_title').value,
+			postText = document.querySelector('#blogpost_text').value;
+
+		if(postTitle.length === 0 || postText.length === 0) {
+			let errorMessage = 'Your blog post must contain a title and some text. Bear with us.';
+			blogPostErrorsDiv.style.display = "block";
+			blogPostErrorsDiv.style.color = "red";
+			blogPostErrorsDiv.innerHTML += '<h5>Something went wrong.</h5>';
+			blogPostErrorsDiv.innerHTML += '<p>' + errorMessage + '</p>';
+			return;
+		}
+
+		// If there are no errors, then store the blogpost in the database and add it
+		// to the list below.
+		// Since all that doesn't exist yet, just log it to the console.
+		console.log('New blog post!');
+		console.log('Title: ' + postTitle);
+		console.log('Content: ' + postText);
 	});
 }
 
@@ -109,9 +152,11 @@ setupSignInListener = function() {
 			// ...
 
 			signInErrorsBlock.querySelector('#signin_errors_list').innerText = errorMessage;
+			return;
 		});
 
 		firebase.auth().onAuthStateChanged(function(user) {
+			console.log(firebase.auth().currentUser)
 			if(user) {
 				signInUser(user);
 			}
@@ -171,6 +216,7 @@ setupSignUpListener = function() {
 			// ...
 
 			signInErrorsBlock.querySelector('#signin_errors_list').innerText = errorMessage;
+			return;
 		});
 
 		firebase.auth().onAuthStateChanged(function(user) {

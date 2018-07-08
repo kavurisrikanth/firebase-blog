@@ -20,10 +20,6 @@
 	padding-right: 10%;
 }
 
-#blogpost_box {
-    padding: 15%;
-}
-
 .form_label {
     text-transform: uppercase;
     font-size: large;
@@ -77,4 +73,10 @@ label {
 #actions_box {
 	padding-left: 20%;
 	padding-right: 20%;
+}
+
+/* Blogposts */
+#blogpost_box, #blogpost_errors {
+	padding-left: 15%;
+	padding-right: 15%;
 }
