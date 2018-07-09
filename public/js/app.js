@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	  let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
 	  document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
 
-	  let user = firebase.auth().currentUser;
-	  console.log(user);
-	  if(user !== null) {
-		  signInUser(user);
-	  } else {
-		  loadAuthCard();
-	  }
+	  firebase.auth().onAuthStateChanged(function(user) {
+		if(user) {
+			signInUser(user);
+		} else {
+			loadAuthCard();
+		}
+	  });
 	} catch (e) {
 	  console.error(e);
 	  document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
