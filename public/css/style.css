@@ -5,7 +5,7 @@
 }
 
 /* Main Page */
-#greeting_card {
+#greeting_card, #load, #posts_box {
 	text-align: center;
 }
 

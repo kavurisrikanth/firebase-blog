@@ -4,10 +4,20 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
 	try {
-	  let app = firebase.app();
-	  let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-	  document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyChsuiJcFoPUEQ02OvTuY3hfOW7o4ADgGY",
+			authDomain: "ye-olde-blog.firebaseapp.com",
+			databaseURL: "https://ye-olde-blog.firebaseio.com",
+			projectId: "ye-olde-blog",
+			storageBucket: "ye-olde-blog.appspot.com",
+			messagingSenderId: "891873975093"
+		  };
+		  
+		// const firebase = require("firebase");
+		firebase.initializeApp(config);
 
+	  const db = firebase.firestore;
 	  firebase.auth().onAuthStateChanged(function(user) {
 		if(user) {
 			signInUser(user);
@@ -15,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			loadAuthCard();
 		}
 	  });
+	  document.querySelector('#load').innerText = 'Done loading Firebase.';
 	} catch (e) {
 	  console.error(e);
 	  document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
@@ -93,7 +104,51 @@ setupBlogPostListener = function() {
 		console.log('New blog post!');
 		console.log('Title: ' + postTitle);
 		console.log('Content: ' + postText);
+
+		let date = new Date();
+
+		let blogPost = {
+			'title': postTitle,
+			'image': null,
+			'video': null,
+			'text': postText,
+			'dateObj': date,
+			'user': firebase.auth().currentUser
+		}
+
+		displayNewBlogPost(blogPost);
 	});
+}
+
+/*****
+ * Display a blog post.
+ */
+displayNewBlogPost = function(blogPostObj) {
+	let postsBox = document.querySelector('#posts_box'),
+		title = blogPostObj['title'],
+		image = blogPostObj['image'],
+		video = blogPostObj['video'],
+		text  = blogPostObj['text'],
+		user  = blogPostObj['user'],
+		date  = blogPostObj['dateObj'];
+
+	postsBox.style.display = "block";
+
+	if(!title) {
+		title = '*** No title. ***';
+	}
+
+	if(!text) {
+		text = '*** No text. ***'
+	}
+
+	let uname = user.displayName,
+		email = user.email;
+
+	postsBox.innerHTML = '<p class="post_title">"' + title + '" by ' + (uname ? uname : email) + '</p>' + 
+	'<p class="post_text">' + text + '</p>' + 
+	'<p class="posted_at"> Posted: ' + date.toString() + '</p>' +
+	postsBox.innerHTML;
 }
 
 
